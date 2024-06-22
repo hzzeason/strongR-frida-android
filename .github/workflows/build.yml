@@ -122,16 +122,16 @@ jobs:
       run: |
         git config --global user.name "${{ secrets.GIT_NAME }}"
         git config --global user.email "${{ secrets.GIT_EMAIL }}"
-        git clone ${{ secrets.PATCH_REPO }}
+        git clone ${{ secrets.PATCH_REPO }} strongR
         export ANDROID_NDK_ROOT=${{ steps.setup-ndk.outputs.ndk-path }}
         git clone --recurse-submodules https://github.com/frida/frida
         cd frida/subprojects/frida-core
-        git am ../../../Patchs/strongR-frida/frida-core/*.patch
+        git am ../../../strongR/patches/*.patch
     - name: two step patch   
       shell: bash
       run: |
         cd frida/subprojects/frida-gum/gum
-        git am ../../../../Patchs/strongR-frida/frida-gum/*.patch
+        git am ../../../../strongR/patches/*.patch
         cd ../../../
         
     - name: Configure
